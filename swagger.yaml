@@ -34,7 +34,7 @@ paths:
         500:
           description: Internal Server Error
       security:
-        - bearerAuth: []
+        - BearerAuth: []
     post:
       tags:
         - Product
@@ -81,8 +81,132 @@ paths:
   #-----------Order--------------------------------------------------------------------------------------------------------------------------------
 
   #-----------Auth--------------------------------------------------------------------------------------------------------------------------------
+  /auth/login:
+    post:
+      summary: Login account 
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Login"
+      responses:
+        '200':
+          description: Login success
+  /auth/logout:
+    post:
+      summary: Logout account
+      tags:
+        - Auth
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Logout success
+  /auth/register:
+    post:
+      summary: Register account
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Register"
+      responses:
+        '201':
+          description: Created
+  /auth/forgot-password:
+    post:
+      summary: Reset password
+      tags:
+        - Auth
+      requestBody:
+        require: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_email:
+                  type: string
+              example:
+                user_email: tanvo9927@gmail.com
+      responses:
+        '200':
+          description: Reset password sucess
 
   #-----------User--------------------------------------------------------------------------------------------------------------------------------
+  /users/me:
+    get:
+      summary: Get account profile
+      tags:
+        - User
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: "OK"
+    patch:
+      summary: Modify profile
+      tags:
+        - User
+      security:
+        - BearerAuth: []
+      requestBody:
+        require: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ModifyProfile"
+      responses:
+        '200':
+          description: "OK"
+  /users:
+    get:
+      summary: Get all account profile
+      tags:
+        - User
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: "OK"
+  /users/change-role:
+    patch:
+      summary: Change role
+      tags:
+        - User
+      security:
+        - BearerAuth: []
+      requestBody:
+        require: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChangeRole"
+      responses:
+        '200':
+          description: "OK"          
+  /users/change-password:
+    patch:
+      summary: Change password
+      tags:
+        - User
+      security:
+        - BearerAuth: []
+      requestBody:
+        require: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChangePassword"
+      responses:
+        '200':
+          description: "OK"
 
   #-----------Store--------------------------------------------------------------------------------------------------------------------------------
 
@@ -100,8 +224,18 @@ components:
       $ref: "./components/schemas/product.yml#/CreateProductBody"
 
     ##------------------------
+    Login:
+      $ref: "components/schemas/auth.yml#/Login"
+    Register:
+      $ref: "components/schemas/auth.yml#/Register"
 
     ##------------------------
+    ModifyProfile:
+      $ref: "components/schemas/user.yml#/ModifyProfile"
+    ChangeRole:
+      $ref: "components/schemas/user.yml#/ChangeRole"
+    ChangePassword:
+      $ref: "components/schemas/user.yml#/ChangePassword"
 
   #------------------------------------------------------------------#
   parameters:
@@ -114,7 +248,7 @@ components:
   #------------------------------------------------------------------#
   #------------------------------------------------------------------#
   securitySchemes:
-    bearerToken:
+    BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT

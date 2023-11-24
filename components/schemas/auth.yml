@@ -1,35 +1,39 @@
-VerifyCodeBody:
+Login:
   type: object
   properties:
-    username:
+    user_name:
       type: string
-    verifyCode:
+    user_password:
       type: string
+  example:
+    user_name: admin
+    user_password: "888888888"
 
-ResetPasswordBody:
+Register:
   type: object
   properties:
-    email:
+    user_name:
       type: string
+    user_password:
+      type: string
+    full_name:
+      type: string
+    user_phone:
+      type: string
+    user_email:
+      type: string
+  example:
+    user_name: user01
+    user_password: "888888888"
+    full_name: TestUser
+    user_phone: 0342800652
+    user_email: test@gmail.com
 
-LoginResponse:
+ForgotPassword:
   type: object
   properties:
-    access_token:
+    user_email:
       type: string
-
-LoginRequest:
-  type: object
-  properties:
-    username:
-      type: string
-    password:
-      type: string
-
-UserTokenSchema:
-  type: object
-  properties:
-    username:
-      type: string
-    userRole:
-      type: string
+  example:
+    user_email: tanv@gmail.com
+  
