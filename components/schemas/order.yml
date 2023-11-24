@@ -101,7 +101,7 @@ CreateOrderBody:
     orderDetails:
       type: array
       items:
-      $ref: "#/OrderDetailBody"
+        $ref: "#/OrderDetailBody"
 
 OrderDetailBody:
   type: object

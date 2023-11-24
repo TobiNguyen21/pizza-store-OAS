@@ -33,8 +33,7 @@ paths:
                 $ref: "#/components/schemas/Products"
         500:
           description: Internal Server Error
-      security:
-        - BearerAuth: []
+
     post:
       tags:
         - Product
@@ -60,7 +59,7 @@ paths:
         422:
           description: Unprocessable Entity
       security:
-        - bearerAuth: []
+        - BearerAuth: []
 
   /products/{id}:
     get:
@@ -115,7 +114,7 @@ paths:
         422:
           description: Unprocessable Entity
       security:
-        - bearerAuth: []
+        - BearerAuth: []
 
     delete:
       tags:
@@ -134,7 +133,7 @@ paths:
         404:
           description: Product not found
       security:
-        - bearerAuth: []
+        - BearerAuth: []
 
   /products/{id}/prices:
     post:
@@ -175,7 +174,7 @@ paths:
         422:
           description: Unprocessable Entity
       security:
-        - bearerAuth: []
+        - BearerAuth: []
 
   #-----------Order--------------------------------------------------------------------------------------------------------------------------------
   /orders:
@@ -200,7 +199,7 @@ paths:
         500:
           description: Internal Server Error
       security:
-        - bearerAuth: []
+        - BearerAuth: []
 
     post:
       tags:
@@ -227,7 +226,7 @@ paths:
         422:
           description: Unprocessable Entity
       security:
-        - bearerAuth: []
+        - BearerAuth: []
 
   /orders/{id}:
     put:
@@ -252,7 +251,7 @@ paths:
         200:
           description: "OK"
       security:
-        - bearerAuth: []
+        - BearerAuth: []
 
   #-----------Auth--------------------------------------------------------------------------------------------------------------------------------
   /auth/login:
@@ -269,6 +268,7 @@ paths:
       responses:
         "200":
           description: Login success
+
   /auth/logout:
     post:
       summary: Logout account
@@ -279,6 +279,7 @@ paths:
       responses:
         "200":
           description: Logout success
+
   /auth/register:
     post:
       summary: Register account
@@ -293,6 +294,7 @@ paths:
       responses:
         "201":
           description: Created
+
   /auth/forgot-password:
     post:
       summary: Reset password
@@ -324,6 +326,7 @@ paths:
       responses:
         "200":
           description: "OK"
+
     patch:
       summary: Modify profile
       tags:
@@ -339,6 +342,7 @@ paths:
       responses:
         "200":
           description: "OK"
+
   /users:
     get:
       summary: Get all account profile
@@ -349,6 +353,7 @@ paths:
       responses:
         "200":
           description: "OK"
+
   /users/change-role:
     patch:
       summary: Change role
@@ -365,6 +370,7 @@ paths:
       responses:
         "200":
           description: "OK"
+
   /users/change-password:
     patch:
       summary: Change password
@@ -402,10 +408,6 @@ components:
       $ref: "./components/schemas/product.yml#/AddPriceProductResponse"
 
     ##------------------------
-    Login:
-      $ref: "components/schemas/auth.yml#/Login"
-    Register:
-      $ref: "components/schemas/auth.yml#/Register"
     Order:
       $ref: "./components/schemas/order.yml#/Order"
     Orders:
@@ -416,6 +418,13 @@ components:
       $ref: "./components/schemas/order.yml#/CreateOrderResponse"
     OrderStatus:
       $ref: "./components/schemas/order.yml#/OrderStatus"
+
+    ##------------------------
+    Login:
+      $ref: "components/schemas/auth.yml#/Login"
+    Register:
+      $ref: "components/schemas/auth.yml#/Register"
+
     ##------------------------
     ModifyProfile:
       $ref: "components/schemas/user.yml#/ModifyProfile"
@@ -434,13 +443,14 @@ components:
       $ref: "./components/parameters/general-parameter.yml#/category"
     orderCode:
       $ref: "./components/parameters/general-parameter.yml#/orderCode"
-  #------------------------------------------------------------------#
+
   #------------------------------------------------------------------#
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+
   #------------------------------------------------------------------#
   responses:
     UnauthorizedError:
