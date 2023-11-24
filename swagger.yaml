@@ -83,7 +83,7 @@ paths:
   #-----------Auth--------------------------------------------------------------------------------------------------------------------------------
   /auth/login:
     post:
-      summary: Login account 
+      summary: Login account
       tags:
         - Auth
       requestBody:
@@ -93,7 +93,7 @@ paths:
             schema:
               $ref: "#/components/schemas/Login"
       responses:
-        '200':
+        "200":
           description: Login success
   /auth/logout:
     post:
@@ -103,7 +103,7 @@ paths:
       security:
         - BearerAuth: []
       responses:
-        '200':
+        "200":
           description: Logout success
   /auth/register:
     post:
@@ -117,7 +117,7 @@ paths:
             schema:
               $ref: "#/components/schemas/Register"
       responses:
-        '201':
+        "201":
           description: Created
   /auth/forgot-password:
     post:
@@ -125,7 +125,7 @@ paths:
       tags:
         - Auth
       requestBody:
-        require: true
+        required: true
         content:
           application/json:
             schema:
@@ -136,7 +136,7 @@ paths:
               example:
                 user_email: tanvo9927@gmail.com
       responses:
-        '200':
+        "200":
           description: Reset password sucess
 
   #-----------User--------------------------------------------------------------------------------------------------------------------------------
@@ -148,7 +148,7 @@ paths:
       security:
         - BearerAuth: []
       responses:
-        '200':
+        "200":
           description: "OK"
     patch:
       summary: Modify profile
@@ -157,13 +157,13 @@ paths:
       security:
         - BearerAuth: []
       requestBody:
-        require: true
+        required: true
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/ModifyProfile"
       responses:
-        '200':
+        "200":
           description: "OK"
   /users:
     get:
@@ -173,7 +173,7 @@ paths:
       security:
         - BearerAuth: []
       responses:
-        '200':
+        "200":
           description: "OK"
   /users/change-role:
     patch:
@@ -183,14 +183,14 @@ paths:
       security:
         - BearerAuth: []
       requestBody:
-        require: true
+        required: true
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/ChangeRole"
       responses:
-        '200':
-          description: "OK"          
+        "200":
+          description: "OK"
   /users/change-password:
     patch:
       summary: Change password
@@ -199,13 +199,13 @@ paths:
       security:
         - BearerAuth: []
       requestBody:
-        require: true
+        required: true
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/ChangePassword"
       responses:
-        '200':
+        "200":
           description: "OK"
 
   #-----------Store--------------------------------------------------------------------------------------------------------------------------------
