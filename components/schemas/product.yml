@@ -49,6 +49,9 @@ CreateProductBody:
       type: string
     productDesc:
       type: string
+    category:
+      type: string
+      enum: [food, drink, topping]
     productImage:
       type: string
       format: binary
