@@ -28,3 +28,10 @@ category:
     enum: [food, drink, topping]
   example: food
   description: The category of items to return.
+
+orderCode:
+  in: query
+  name: orderCode
+  required: false
+  schema:
+    type: string
