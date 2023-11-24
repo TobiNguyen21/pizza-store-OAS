@@ -1,0 +1,139 @@
+User:
+  type: "object"
+  properties:
+    id:
+      type: "string"
+    username:
+      type: "string"
+    name:
+      type: "string"
+    email:
+      type: "string"
+    password:
+      type: "string"
+    userRole:
+      type: "string"
+      enum: [ADMIN, NORMAL_USER]
+    loginType:
+      type: "string"
+      enum: [NORMAL, GMAIL]
+    googleTokenId: 
+      type: "string"
+
+UserInformation:
+  allOf:
+    - $ref: "#/User"
+    - type: "object"
+      properties:
+        createdAt:
+          type: string
+        parentInformation:
+          nullable: true
+          type: object
+          properties:
+            email:
+              type: string
+            avatarUrl:
+              type: string
+            id:
+              type: number
+
+ChildrenUsers:
+  type: array
+  items:
+    type: object
+    properties:
+      username:
+        type: string
+      name:
+        type: string
+      avatarUrl:
+        type: string
+
+ChildStatistics:
+  allOf:
+    - $ref: "#/User"
+    - type: "object"
+      properties:
+        completedCourse:
+          type: integer
+        totalLearningTime:
+          type: integer
+          description: in minutes
+        quizzesStat:
+          type: object
+          properties:
+            done:
+              type: integer
+            highestScore:
+              type: integer
+            lowestScore:
+              type: integer
+            correctAnswers:
+              type: integer
+            incorrectAnswers:
+              type: integer
+            emptyAnswers:
+              type: integer
+
+ChildrenStatistics:
+  type: array
+  items:
+    $ref: "#/ChildStatistics"
+
+UserChangePassword:
+  type: object
+  properties:
+    oldPassword:
+      type: string
+    newPassword:
+      type: string
+
+ParentStatistics:
+  type: object
+  properties:
+    courseStatus:
+      type: object
+      properties:
+        processing:
+          type: number
+        done:
+          type: number
+        registed:
+          type: number
+    audit:
+      type: array
+      items:
+        $ref: "./chart.yml#/WeeklyHourAudit"
+    childrenStatistics:
+      type: array
+      items:
+        $ref: "#/ChildStatistics"
+
+ParentChildrenCourse:
+  type: object
+  properties:
+    children:
+      type: array
+      items: string
+    courses:
+      type: array
+      items:
+        type: object
+        properties:
+          childName:
+            type: string
+          coursesDetail:
+            $ref: "./course.yml#/PersonalCourse"
+
+TeacherContactInfo:
+  type: array
+  items:
+    type: object
+    properties:
+      timestamp:
+        type: string
+      title:
+        type: string
+      courseTitle:
+        type: string

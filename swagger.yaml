@@ -1,0 +1,127 @@
+---
+openapi: "3.0.0"
+info:
+  title: "Pizza Store Server"
+  version: "1.0.0"
+  description: "This is a APIs of Pizza Store Server."
+servers:
+  - url: http://localhost:3000/api/v1
+tags:
+  - name: Product
+  - name: Order
+  - name: Auth
+  - name: User
+  - name: Store
+  - name: Report
+paths:
+  #-----------Product--------------------------------------------------------------------------------------------------------------------------------
+  /products:
+    get:
+      tags:
+        - Product
+      summary: Get products information
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/category"
+      responses:
+        200:
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Products"
+        500:
+          description: Internal Server Error
+      security:
+        - bearerAuth: []
+    post:
+      tags:
+        - Product
+      summary: "Create new product"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreateProductBody"
+                - type: object
+        description: "Created new product"
+        required: true
+      responses:
+        default:
+          description: "Successful operation"
+  /products/{id}:
+    get:
+      tags:
+        - Product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Product not found
+
+  #-----------Order--------------------------------------------------------------------------------------------------------------------------------
+
+  #-----------Auth--------------------------------------------------------------------------------------------------------------------------------
+
+  #-----------User--------------------------------------------------------------------------------------------------------------------------------
+
+  #-----------Store--------------------------------------------------------------------------------------------------------------------------------
+
+  #-----------Report--------------------------------------------------------------------------------------------------------------------------------
+
+components:
+  #------------------------------------------------------------------#
+  schemas:
+    ##------------------------
+    Product:
+      $ref: "./components/schemas/product.yml#/Product"
+    Products:
+      $ref: "./components/schemas/product.yml#/Products"
+    CreateProductBody:
+      $ref: "./components/schemas/product.yml#/CreateProductBody"
+
+    ##------------------------
+
+    ##------------------------
+
+  #------------------------------------------------------------------#
+  parameters:
+    page:
+      $ref: "./components/parameters/general-parameter.yml#/page"
+    limit:
+      $ref: "./components/parameters/general-parameter.yml#/limit"
+    category:
+      $ref: "./components/parameters/general-parameter.yml#/category"
+  #------------------------------------------------------------------#
+  #------------------------------------------------------------------#
+  securitySchemes:
+    bearerToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  #------------------------------------------------------------------#
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid
+externalDocs:
+  description: "More details"
+  url: "http://swagger.io"

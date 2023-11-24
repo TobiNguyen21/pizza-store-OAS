@@ -1,0 +1,30 @@
+page:
+  in: query
+  name: page
+  required: false
+  schema:
+    type: integer
+    minimum: 1
+    default: 1
+  description: The number of items to skip before starting to collect the result set.
+
+limit:
+  in: query
+  name: limit
+  required: false
+  schema:
+    type: integer
+    minimum: 1
+    maximum: 20
+    default: 10
+  description: The numbers of items to return.
+
+category:
+  in: query
+  name: category
+  required: false
+  schema:
+    type: string
+    enum: [food, drink, topping]
+  example: food
+  description: The category of items to return.
