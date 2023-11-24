@@ -49,12 +49,24 @@ paths:
         description: "Created new product"
         required: true
       responses:
-        default:
+        201:
           description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        401:
+          description: Unauthorized
+        422:
+          description: Unprocessable Entity
+      security:
+        - bearerAuth: []
+
   /products/{id}:
     get:
       tags:
         - Product
+      summary: Get product by id
       parameters:
         - name: id
           in: path
@@ -64,21 +76,183 @@ paths:
             format: int64
 
       responses:
-        "200":
+        200:
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Product"
-            application/xml:
-              schema:
-                $ref: "#/components/schemas/Product"
-        "400":
-          description: Invalid ID supplied
-        "404":
+                $ref: "#/components/schemas/CreateProductResponse"
+        401:
+          description: Unauthorized
+        404:
           description: Product not found
 
+    put:
+      tags:
+        - Product
+      summary: "Update product by id"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreateProductBody"
+                - type: object
+        description: "Update product"
+        required: true
+      responses:
+        200:
+          description: "Update product success"
+        401:
+          description: Unauthorized
+        422:
+          description: Unprocessable Entity
+      security:
+        - bearerAuth: []
+
+    delete:
+      tags:
+        - Product
+      summary: Delete by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        401:
+          description: Unauthorized
+        404:
+          description: Product not found
+      security:
+        - bearerAuth: []
+
+  /products/{id}/prices:
+    post:
+      tags:
+        - Product
+      summary: "Add price for product"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - type: object
+                - properties:
+                    size:
+                      type: string
+                    price:
+                      type: number
+                      example: 200000
+
+        description: "Created new product"
+        required: true
+      responses:
+        200:
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddPriceProductResponse"
+        401:
+          description: Unauthorized
+        422:
+          description: Unprocessable Entity
+      security:
+        - bearerAuth: []
+
   #-----------Order--------------------------------------------------------------------------------------------------------------------------------
+  /orders:
+    get:
+      tags:
+        - Order
+      summary: Get orders information
+      parameters:
+        - $ref: "#/components/parameters/orderCode"
+      responses:
+        200:
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/Order"
+                  - $ref: "#/components/schemas/Orders"
+
+        401:
+          description: Unauthorized
+        500:
+          description: Internal Server Error
+      security:
+        - bearerAuth: []
+
+    post:
+      tags:
+        - Order
+      summary: "Create new order"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreateOrderBody"
+                - type: object
+        description: "Created new product"
+        required: true
+      responses:
+        201:
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateOrderResponse"
+        401:
+          description: Unauthorized
+        422:
+          description: Unprocessable Entity
+      security:
+        - bearerAuth: []
+
+  /orders/{id}:
+    put:
+      tags:
+        - Order
+      summary: "Change status order"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/OrderStatus"
+        description: "Change status order"
+        required: true
+      responses:
+        200:
+          description: "OK"
+      security:
+        - bearerAuth: []
 
   #-----------Auth--------------------------------------------------------------------------------------------------------------------------------
   /auth/login:
@@ -222,13 +396,26 @@ components:
       $ref: "./components/schemas/product.yml#/Products"
     CreateProductBody:
       $ref: "./components/schemas/product.yml#/CreateProductBody"
+    CreateProductResponse:
+      $ref: "./components/schemas/product.yml#/CreateProductResponse"
+    AddPriceProductResponse:
+      $ref: "./components/schemas/product.yml#/AddPriceProductResponse"
 
     ##------------------------
     Login:
       $ref: "components/schemas/auth.yml#/Login"
     Register:
       $ref: "components/schemas/auth.yml#/Register"
-
+    Order:
+      $ref: "./components/schemas/order.yml#/Order"
+    Orders:
+      $ref: "./components/schemas/order.yml#/Orders"
+    CreateOrderBody:
+      $ref: "./components/schemas/order.yml#/CreateOrderBody"
+    CreateOrderResponse:
+      $ref: "./components/schemas/order.yml#/CreateOrderResponse"
+    OrderStatus:
+      $ref: "./components/schemas/order.yml#/OrderStatus"
     ##------------------------
     ModifyProfile:
       $ref: "components/schemas/user.yml#/ModifyProfile"
@@ -245,6 +432,8 @@ components:
       $ref: "./components/parameters/general-parameter.yml#/limit"
     category:
       $ref: "./components/parameters/general-parameter.yml#/category"
+    orderCode:
+      $ref: "./components/parameters/general-parameter.yml#/orderCode"
   #------------------------------------------------------------------#
   #------------------------------------------------------------------#
   securitySchemes:

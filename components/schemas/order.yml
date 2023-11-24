@@ -1,0 +1,145 @@
+Orders:
+  type: array
+  items:
+    $ref: "#/Order"
+
+Order:
+  type: object
+  properties:
+    order_id:
+      type: integer
+      format: int64
+      example: 3
+    order_code:
+      type: string
+      example: "ORDER07"
+    order_status:
+      type: string
+      example: "pending"
+    order_address:
+      type: string
+      example: "24 Duong F, phuong C, tp THU DUC"
+    fee_transport:
+      type: number
+      format: float
+      example: 15000
+    total_price_product:
+      type: number
+      format: float
+      example: 285000
+    order_price:
+      type: number
+      format: float
+      example: 300000
+    order_date:
+      type: string
+      format: date-time
+      example: "2023-11-24T08:46:44.000Z"
+    store_id:
+      type: integer
+      format: int64
+      example: 1
+    recipient_name:
+      type: string
+      example: "A Van B"
+    recipient_phone:
+      type: integer
+      format: int64
+      example: 987654332
+    orderDetails:
+      type: array
+      items:
+        $ref: "#/OrderDetail"
+
+OrderDetail:
+  type: object
+  properties:
+    product_id:
+      type: integer
+      format: int64
+      example: 1
+    product_size:
+      type: string
+      example: "Large"
+    quantity_buy:
+      type: integer
+      format: int64
+      example: 1
+
+CreateOrderBody:
+  type: object
+  properties:
+    orderCode:
+      type: string
+      example: "ORDER07"
+    orderStatus:
+      type: string
+      example: "pending"
+    orderAddress:
+      type: string
+      example: "24 Duong F, phuong C, tp THU DUC"
+    setAddressDefault:
+      type: boolean
+      example: false
+    recipientName:
+      type: string
+      example: "A Van B"
+    recipientPhone:
+      type: string
+      example: "0987654332"
+    setPhoneDefault:
+      type: boolean
+      example: false
+    feeTransport:
+      type: number
+      format: float
+      example: 15000
+    storeId:
+      type: integer
+      format: int64
+      example: 1
+    orderDetails:
+      type: array
+      items:
+      $ref: "#/OrderDetailBody"
+
+OrderDetailBody:
+  type: object
+  properties:
+    productId:
+      type: integer
+      format: int64
+      example: 1
+    productSize:
+      type: string
+      example: "Large"
+    quantityBuy:
+      type: integer
+      format: int64
+      example: 1
+
+CreateOrderResponse:
+  type: object
+  properties:
+    order_id:
+      type: integer
+      format: int64
+      example: 1
+    order_code:
+      type: string
+      example: "ORDER07"
+    order_price:
+      type: number
+      format: float
+      example: 300000
+    order_date:
+      type: string
+      example: "2023-11-24T08:46:43.875Z"
+
+OrderStatus:
+  type: object
+  properties:
+    orderStatus:
+      type: string
+      enum:
+        ["pending", "processing", "done", "cancelled", "shipping", "payment"]
