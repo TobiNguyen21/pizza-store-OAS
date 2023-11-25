@@ -6,6 +6,7 @@ info:
   description: "This is a APIs of Pizza Store Server."
 servers:
   - url: http://localhost:3000/api/v1
+  - url: https://pizza-top.onrender.com/api/v1
 tags:
   - name: Product
   - name: Order
