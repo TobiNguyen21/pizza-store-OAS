@@ -1,0 +1,20 @@
+CreateStore:
+  type: object
+  properties:
+    store_name:
+      type: string
+    store_address:
+      type: string
+  example:
+    store_name: Pizza hub 1
+    store_address: So 300 Tan Binh TP.HCM
+ModifyStoreInformation:
+  type: object
+  properties:
+    store_name:
+      type: string
+    store_address:
+      type: string
+  example:
+    store_name: Pizza hub 2
+    store_address: So 20 Tan Binh TP.HCM
