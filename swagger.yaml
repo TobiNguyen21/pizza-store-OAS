@@ -6,6 +6,7 @@ info:
   description: "This is a APIs of Pizza Store Server."
 servers:
   - url: https://pizza-top.onrender.com/api/v1
+  - url: http://localhost:3000/api/v1
 tags:
   - name: Product
   - name: Order
@@ -228,6 +229,27 @@ paths:
       security:
         - BearerAuth: []
 
+  /orders/all:
+    get:
+      tags:
+        - Order
+      summary: Get all order information
+      responses:
+        200:
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Orders"
+        401:
+          description: Unauthorized
+        403:
+          description: Don't can access this route!
+        500:
+          description: Internal Server Error
+      security:
+        - BearerAuth: []
+
   /orders/{id}:
     put:
       tags:
@@ -391,6 +413,77 @@ paths:
   #-----------Store--------------------------------------------------------------------------------------------------------------------------------
 
   #-----------Report--------------------------------------------------------------------------------------------------------------------------------
+  /reports:
+    get:
+      tags:
+        - Report
+      summary: Get reports information
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/storeId"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/Report"
+                  - $ref: "#/components/schemas/Reports"
+        401:
+          description: Unauthorized
+        500:
+          description: Internal Server Error
+      security:
+        - BearerAuth: []
+
+    post:
+      tags:
+        - Report
+      summary: "Create new report"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreateReportBody"
+                - type: object
+        description: "Created new product"
+        required: true
+      responses:
+        201:
+          description: OK
+        401:
+          description: Unauthorized
+        422:
+          description: Unprocessable Entity
+      security:
+        - BearerAuth: []
+
+  /reports/{id}:
+    get:
+      tags:
+        - Report
+      summary: "Get report by id"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Report"
+        401:
+          description: "unauthorized"
+      security:
+        - BearerAuth: []
 
 components:
   #------------------------------------------------------------------#
@@ -433,6 +526,14 @@ components:
     ChangePassword:
       $ref: "components/schemas/user.yml#/ChangePassword"
 
+    ##-------------------------
+    Report:
+      $ref: "./components/schemas/report.yml#/Report"
+    Reports:
+      $ref: "./components/schemas/report.yml#/Reports"
+    CreateReportBody:
+      $ref: "./components/schemas/report.yml#/CreateReportBody"
+
   #------------------------------------------------------------------#
   parameters:
     page:
@@ -443,6 +544,8 @@ components:
       $ref: "./components/parameters/general-parameter.yml#/category"
     orderCode:
       $ref: "./components/parameters/general-parameter.yml#/orderCode"
+    storeId:
+      $ref: "./components/parameters/general-parameter.yml#/storeId"
 
   #------------------------------------------------------------------#
   securitySchemes:

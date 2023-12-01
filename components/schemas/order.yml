@@ -58,6 +58,9 @@ OrderDetail:
       type: integer
       format: int64
       example: 1
+    product_name:
+      type: string
+      example: "Pizza Margherita"
     product_size:
       type: string
       example: "Large"
