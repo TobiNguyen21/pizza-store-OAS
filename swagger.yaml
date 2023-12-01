@@ -411,6 +411,83 @@ paths:
           description: "OK"
 
   #-----------Store--------------------------------------------------------------------------------------------------------------------------------
+  /stores:
+    get:
+      summary: Get all store
+      tags:
+        - Store
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: Create new store
+      tags:
+        - Store
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateStore"
+      responses:
+        "201":
+          description: "Created"
+  /stores/{id}:
+    get:
+      summary: Get information of store
+      tags:
+        - Store
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: "OK"
+    patch:
+      summary: Update information of store
+      tags:
+        - Store
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ModifyStoreInformation"
+      responses:
+        "200":
+          description: "OK"
+  /stores/{id}/orders:
+    get:
+      summary: Get all order of store
+      tags:
+        - Store
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: "OK"
 
   #-----------Report--------------------------------------------------------------------------------------------------------------------------------
   /reports:
@@ -526,6 +603,7 @@ components:
     ChangePassword:
       $ref: "components/schemas/user.yml#/ChangePassword"
 
+
     ##-------------------------
     Report:
       $ref: "./components/schemas/report.yml#/Report"
@@ -533,6 +611,13 @@ components:
       $ref: "./components/schemas/report.yml#/Reports"
     CreateReportBody:
       $ref: "./components/schemas/report.yml#/CreateReportBody"
+
+    ##------------------------
+    CreateStore:
+      $ref: "components/schemas/store.yml#/CreateStore"
+    ModifyStoreInformation:
+      $ref: "components/schemas/store.yml#/ModifyStoreInformation"
+
 
   #------------------------------------------------------------------#
   parameters:
