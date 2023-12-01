@@ -1,0 +1,75 @@
+Reports:
+  type: array
+  items:
+    $ref: "#/Report"
+
+Report:
+  type: object
+  properties:
+    report_id:
+      type: integer
+      format: int64
+      example: 3
+    create_date:
+      type: string
+      example: "2023-12-01"
+    start_date:
+      type: string
+      example: "2023-12-01"
+    end_date:
+      type: string
+      example: "2023-12-01"
+    report_revenue:
+      type: number
+      format: float
+      example: 150000
+    report_total_order:
+      type: integer
+      format: int64
+      example: 1
+    report_desc:
+      type: string
+      example: "report 01 ....................."
+    store_id:
+      type: integer
+      format: int64
+      example: 1
+    reportDetails:
+      type: array
+      items:
+        $ref: "#/ReportDetail"
+
+ReportDetail:
+  type: object
+  properties:
+    product_id:
+      type: integer
+      format: int64
+      example: 1
+    product_name:
+      type: string
+      example: "Pizza Margherita"
+    product_size:
+      type: string
+      example: "Large"
+    quantity_buy:
+      type: integer
+      format: int64
+      example: 1
+
+CreateReportBody:
+  type: object
+  properties:
+    reportDesc:
+      type: string
+      example: "report 01 ......"
+    storeId:
+      type: integer
+      format: int64
+      example: 1
+    startDateString:
+      type: string
+      example: "2023-11-29"
+    endDateString:
+      type: string
+      example: "2023-12-01"

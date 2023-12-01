@@ -35,3 +35,10 @@ orderCode:
   required: false
   schema:
     type: string
+
+storeId:
+  in: query
+  name: storeId
+  required: false
+  schema:
+    type: string
