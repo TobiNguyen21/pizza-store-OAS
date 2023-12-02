@@ -27,7 +27,7 @@ paths:
         - $ref: "#/components/parameters/category"
       responses:
         200:
-          description: "Successful operation"
+          description: OK
           content:
             application/json:
               schema:
@@ -182,9 +182,7 @@ paths:
     get:
       tags:
         - Order
-      summary: Get orders information
-      parameters:
-        - $ref: "#/components/parameters/orderCode"
+      summary: Get all order information
       responses:
         200:
           description: "Successful operation"
@@ -226,27 +224,6 @@ paths:
           description: Unauthorized
         422:
           description: Unprocessable Entity
-      security:
-        - BearerAuth: []
-
-  /orders/all:
-    get:
-      tags:
-        - Order
-      summary: Get all order information
-      responses:
-        200:
-          description: "Successful operation"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Orders"
-        401:
-          description: Unauthorized
-        403:
-          description: Don't can access this route!
-        500:
-          description: Internal Server Error
       security:
         - BearerAuth: []
 
@@ -338,6 +315,41 @@ paths:
           description: Reset password sucess
 
   #-----------User--------------------------------------------------------------------------------------------------------------------------------
+  /users:
+    get:
+      summary: Get all account profile
+      tags:
+        - User
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: "OK"
+
+  /users/order:
+    get:
+      tags:
+        - User
+      summary: Get my order information
+      parameters:
+        - $ref: "#/components/parameters/orderCode"
+      responses:
+        200:
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/Order"
+                  - $ref: "#/components/schemas/Orders"
+
+        401:
+          description: Unauthorized
+        500:
+          description: Internal Server Error
+      security:
+        - BearerAuth: []
+
   /users/me:
     get:
       summary: Get account profile
@@ -361,17 +373,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/ModifyProfile"
-      responses:
-        "200":
-          description: "OK"
-
-  /users:
-    get:
-      summary: Get all account profile
-      tags:
-        - User
-      security:
-        - BearerAuth: []
       responses:
         "200":
           description: "OK"
@@ -603,7 +604,6 @@ components:
     ChangePassword:
       $ref: "components/schemas/user.yml#/ChangePassword"
 
-
     ##-------------------------
     Report:
       $ref: "./components/schemas/report.yml#/Report"
@@ -617,7 +617,6 @@ components:
       $ref: "components/schemas/store.yml#/CreateStore"
     ModifyStoreInformation:
       $ref: "components/schemas/store.yml#/ModifyStoreInformation"
-
 
   #------------------------------------------------------------------#
   parameters:
