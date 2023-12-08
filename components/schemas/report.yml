@@ -52,7 +52,7 @@ ReportDetail:
     product_size:
       type: string
       example: "Large"
-    quantity_buy:
+    sale_quantity:
       type: integer
       format: int64
       example: 1

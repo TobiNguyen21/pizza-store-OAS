@@ -85,5 +85,6 @@ AddPriceProductResponse:
       type: integer
     product_price:
       type: float
+      example: 100000.00
     product_price_id:
       type: integer

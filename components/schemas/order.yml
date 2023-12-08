@@ -61,10 +61,10 @@ OrderDetail:
     product_name:
       type: string
       example: "Pizza Margherita"
-    product_size:
+    size:
       type: string
       example: "Large"
-    quantity_buy:
+    quantity:
       type: integer
       format: int64
       example: 1
@@ -113,9 +113,10 @@ OrderDetailBody:
       type: integer
       format: int64
       example: 1
-    productSize:
-      type: string
-      example: "Large"
+    productSizeId:
+      type: integer
+      format: int64
+      example: 1
     quantityBuy:
       type: integer
       format: int64
