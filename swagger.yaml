@@ -563,6 +563,30 @@ paths:
       security:
         - BearerAuth: []
 
+  /reports/file/{fileName}:
+    get:
+      tags:
+        - Report
+      summary: "Get download report file"
+      parameters:
+        - name: fileName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A PDF file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        "401":
+          description: Unauthorized
+      security:
+        - BearerAuth: []
+
 components:
   #------------------------------------------------------------------#
   schemas:
