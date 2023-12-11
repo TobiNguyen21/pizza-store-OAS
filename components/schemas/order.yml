@@ -1,7 +1,29 @@
-Orders:
-  type: array
-  items:
-    $ref: "#/Order"
+GetOneOrderResponses:
+  type: object
+  properties:
+    message:
+      type: string
+      default: "OK"
+    code:
+      type: number
+      default: 200
+    metadata:
+      type: object
+      $ref: "#/Order"
+
+GetOrdersResponses:
+  type: object
+  properties:
+    message:
+      type: string
+      default: "OK"
+    code:
+      type: number
+      default: 200
+    metadata:
+      type: array
+      items:
+        $ref: "#/Order"
 
 Order:
   type: object
@@ -125,20 +147,29 @@ OrderDetailBody:
 CreateOrderResponse:
   type: object
   properties:
-    order_id:
-      type: integer
-      format: int64
-      example: 1
-    order_code:
+    message:
       type: string
-      example: "ORDER07"
-    order_price:
+      default: "OK"
+    code:
       type: number
-      format: float
-      example: 300000
-    order_date:
-      type: string
-      example: "2023-11-24T08:46:43.875Z"
+      default: 201
+    metadata:
+      type: object
+      properties:
+        order_id:
+          type: integer
+          format: int64
+          example: 1
+        order_code:
+          type: string
+          example: "ORDER07"
+        order_price:
+          type: number
+          format: float
+          example: 300000
+        order_date:
+          type: string
+          example: "2023-11-24T08:46:43.875Z"
 
 OrderStatus:
   type: object

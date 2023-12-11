@@ -1,7 +1,29 @@
-Products:
-  type: array
-  items:
-    $ref: "#/Product"
+GetOneProductResponses:
+  type: object
+  properties:
+    message:
+      type: string
+      default: "OK"
+    code:
+      type: number
+      default: 200
+    metadata:
+      type: object
+      $ref: "#/Product"
+
+GetProductsResponses:
+  type: object
+  properties:
+    message:
+      type: string
+      default: "OK"
+    code:
+      type: number
+      default: 200
+    metadata:
+      type: array
+      items:
+        $ref: "#/Product"
 
 Product:
   type: object
@@ -59,32 +81,51 @@ CreateProductBody:
 CreateProductResponse:
   type: object
   properties:
-    product_name:
+    message:
       type: string
-    product_slug:
-      type: string
-    product_image:
-      type: string
-    product_desc:
-      type: string
-    category:
-      type: string
-      enum: [food, drink, topping]
-    is_deleted:
-      type: boolean
-    product_id:
-      type: integer
-      format: int64
+      default: "OK"
+    code:
+      type: number
+      default: 200
+    metadata:
+      type: object
+      properties:
+        product_name:
+          type: string
+        product_slug:
+          type: string
+        product_image:
+          type: string
+        product_desc:
+          type: string
+        category:
+          type: string
+          enum: [food, drink, topping]
+        is_deleted:
+          type: boolean
+          default: false
+        product_id:
+          type: integer
+          format: int64
 
 AddPriceProductResponse:
   type: object
   properties:
-    product_id:
-      type: integer
-    product_size_id:
-      type: integer
-    product_price:
-      type: float
-      example: 100000.00
-    product_price_id:
-      type: integer
+    message:
+      type: string
+      default: "OK"
+    code:
+      type: number
+      default: 200
+    metadata:
+      type: object
+      properties:
+        product_id:
+          type: integer
+        product_size_id:
+          type: integer
+        product_price:
+          type: float
+          example: 100000.00
+        product_price_id:
+          type: integer
