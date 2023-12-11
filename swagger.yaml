@@ -31,7 +31,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Products"
+                type: object
+
+                $ref: "#/components/schemas/GetProductsResponses"
         500:
           description: Internal Server Error
 
@@ -50,11 +52,11 @@ paths:
         required: true
       responses:
         201:
-          description: "Successful operation"
+          description: "OK"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Product"
+                $ref: "#/components/schemas/CreateProductResponse"
         401:
           description: Unauthorized
         422:
@@ -77,11 +79,11 @@ paths:
 
       responses:
         200:
-          description: successful operation
+          description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreateProductResponse"
+                $ref: "#/components/schemas/GetOneProductResponses"
         401:
           description: Unauthorized
         404:
@@ -109,7 +111,7 @@ paths:
         required: true
       responses:
         200:
-          description: "Update product success"
+          description: OK
         401:
           description: Unauthorized
         422:
@@ -129,6 +131,8 @@ paths:
             type: integer
             format: int64
       responses:
+        200:
+          description: OK
         401:
           description: Unauthorized
         404:
@@ -165,7 +169,7 @@ paths:
         required: true
       responses:
         200:
-          description: "Successful operation"
+          description: OK
           content:
             application/json:
               schema:
@@ -185,13 +189,13 @@ paths:
       summary: Get all order information
       responses:
         200:
-          description: "Successful operation"
+          description: OK
           content:
             application/json:
               schema:
                 oneOf:
-                  - $ref: "#/components/schemas/Order"
-                  - $ref: "#/components/schemas/Orders"
+                  - $ref: "#/components/schemas/GetOneOrderResponses"
+                  - $ref: "#/components/schemas/GetOrdersResponses"
 
         401:
           description: Unauthorized
@@ -215,7 +219,7 @@ paths:
         required: true
       responses:
         201:
-          description: "Successful operation"
+          description: OK
           content:
             application/json:
               schema:
@@ -249,6 +253,10 @@ paths:
       responses:
         200:
           description: "OK"
+        401:
+          description: Unauthorized
+        500:
+          description: Internal Server Error
       security:
         - BearerAuth: []
 
@@ -335,14 +343,13 @@ paths:
         - $ref: "#/components/parameters/orderCode"
       responses:
         200:
-          description: "Successful operation"
+          description: OK
           content:
             application/json:
               schema:
                 oneOf:
-                  - $ref: "#/components/schemas/Order"
-                  - $ref: "#/components/schemas/Orders"
-
+                  - $ref: "#/components/schemas/GetOneOrderResponses"
+                  - $ref: "#/components/schemas/GetOrdersResponses"
         401:
           description: Unauthorized
         500:
@@ -506,9 +513,7 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: "#/components/schemas/Report"
-                  - $ref: "#/components/schemas/Reports"
+                $ref: "#/components/schemas/GetReportsResponses"
         401:
           description: Unauthorized
         500:
@@ -557,7 +562,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Report"
+                $ref: "#/components/schemas/GetOneReportResponses"
         401:
           description: "unauthorized"
       security:
@@ -591,10 +596,10 @@ components:
   #------------------------------------------------------------------#
   schemas:
     ##------------------------
-    Product:
-      $ref: "./components/schemas/product.yml#/Product"
-    Products:
-      $ref: "./components/schemas/product.yml#/Products"
+    GetOneProductResponses:
+      $ref: "./components/schemas/product.yml#/GetOneProductResponses"
+    GetProductsResponses:
+      $ref: "./components/schemas/product.yml#/GetProductsResponses"
     CreateProductBody:
       $ref: "./components/schemas/product.yml#/CreateProductBody"
     CreateProductResponse:
@@ -603,10 +608,10 @@ components:
       $ref: "./components/schemas/product.yml#/AddPriceProductResponse"
 
     ##------------------------
-    Order:
-      $ref: "./components/schemas/order.yml#/Order"
-    Orders:
-      $ref: "./components/schemas/order.yml#/Orders"
+    GetOneOrderResponses:
+      $ref: "./components/schemas/order.yml#/GetOneOrderResponses"
+    GetOrdersResponses:
+      $ref: "./components/schemas/order.yml#/GetOrdersResponses"
     CreateOrderBody:
       $ref: "./components/schemas/order.yml#/CreateOrderBody"
     CreateOrderResponse:
@@ -629,10 +634,10 @@ components:
       $ref: "components/schemas/user.yml#/ChangePassword"
 
     ##-------------------------
-    Report:
-      $ref: "./components/schemas/report.yml#/Report"
-    Reports:
-      $ref: "./components/schemas/report.yml#/Reports"
+    GetOneReportResponses:
+      $ref: "./components/schemas/report.yml#/GetOneReportResponses"
+    GetReportsResponses:
+      $ref: "./components/schemas/report.yml#/GetReportsResponses"
     CreateReportBody:
       $ref: "./components/schemas/report.yml#/CreateReportBody"
 

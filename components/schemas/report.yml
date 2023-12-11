@@ -1,7 +1,29 @@
-Reports:
-  type: array
-  items:
-    $ref: "#/Report"
+GetOneReportResponses:
+  type: object
+  properties:
+    message:
+      type: string
+      default: "OK"
+    code:
+      type: number
+      default: 200
+    metadata:
+      type: object
+      $ref: "#/Report"
+
+GetReportsResponses:
+  type: object
+  properties:
+    message:
+      type: string
+      default: "OK"
+    code:
+      type: number
+      default: 200
+    metadata:
+      type: array
+      items:
+        $ref: "#/Report"
 
 Report:
   type: object
