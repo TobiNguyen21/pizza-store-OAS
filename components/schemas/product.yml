@@ -86,7 +86,7 @@ CreateProductResponse:
       default: "OK"
     code:
       type: number
-      default: 200
+      default: 201
     metadata:
       type: object
       properties:
@@ -116,7 +116,7 @@ AddPriceProductResponse:
       default: "OK"
     code:
       type: number
-      default: 200
+      default: 201
     metadata:
       type: object
       properties:
