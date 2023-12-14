@@ -95,3 +95,38 @@ CreateReportBody:
     endDateString:
       type: string
       example: "2023-12-01"
+
+CreateReportResponse:
+  type: object
+  properties:
+    message:
+      type: string
+      default: "OK"
+    code:
+      type: number
+      default: 201
+    metadata:
+      type: object
+      properties:
+        report:
+          type: object
+          properties:
+            create_date:
+              type: string
+            start_date:
+              type: string
+            end_date:
+              type: string
+            report_revenue:
+              type: number
+              format: float
+            report_total_order:
+              type: number
+              format: float
+            report_desc:
+              type: string
+            report_id:
+              type: integer
+              format: float
+        urlPdfDownload:
+          type: string
