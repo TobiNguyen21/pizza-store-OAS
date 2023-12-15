@@ -119,10 +119,7 @@ CreateOrderBody:
   properties:
     orderCode:
       type: string
-      example: "ORDER07"
-    orderStatus:
-      type: string
-      example: "pending"
+      example: "ORDER01"
     orderAddress:
       type: string
       example: "24 Duong F, phuong C, tp THU DUC"
