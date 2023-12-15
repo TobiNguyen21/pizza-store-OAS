@@ -194,7 +194,6 @@ paths:
             application/json:
               schema:
                 oneOf:
-                  - $ref: "#/components/schemas/GetOneOrderResponses"
                   - $ref: "#/components/schemas/GetOrdersResponses"
 
         401:

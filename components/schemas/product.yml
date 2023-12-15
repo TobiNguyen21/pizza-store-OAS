@@ -21,9 +21,32 @@ GetProductsResponses:
       type: number
       default: 200
     metadata:
-      type: array
-      items:
-        $ref: "#/Product"
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: "#/Product"
+        count:
+          type: integer
+          format: int64
+          example: 1
+        totalRecord:
+          type: integer
+          format: int64
+          example: 30
+        page:
+          type: integer
+          format: int64
+          example: 1
+        limit:
+          type: integer
+          format: int64
+          example: 1
+        totalPage:
+          type: integer
+          format: int64
+          example: 30
 
 Product:
   type: object

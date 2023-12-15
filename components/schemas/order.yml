@@ -21,9 +21,32 @@ GetOrdersResponses:
       type: number
       default: 200
     metadata:
-      type: array
-      items:
-        $ref: "#/Order"
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: "#/Order"
+        count:
+          type: integer
+          format: int64
+          example: 1
+        totalRecord:
+          type: integer
+          format: int64
+          example: 30
+        page:
+          type: integer
+          format: int64
+          example: 1
+        limit:
+          type: integer
+          format: int64
+          example: 1
+        totalPage:
+          type: integer
+          format: int64
+          example: 30
 
 Order:
   type: object
